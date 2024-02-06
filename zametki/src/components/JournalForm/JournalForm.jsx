@@ -39,9 +39,10 @@ function JournalForm({onSubmit}) {
 	
 	useEffect(() => {
 		if (isFormReadyToSubmit) {
+			console.log(values);
 			onSubmit(values);
 		}
-	}, [isFormReadyToSubmit, onSubmit, values]);
+	}, [isFormReadyToSubmit, values]);
 	
 	const addJournalItem = (e) => {
 		e.preventDefault();

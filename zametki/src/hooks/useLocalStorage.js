@@ -1,23 +1,22 @@
 import { useEffect, useState } from 'react';
 
-// const [items, setItems] = useState(INITIAL_DATA);
-const useLocalStorage = (initialState = [], key) => {
-	const getData = () => {
-		const storage = localStorage.getItem(key);
-
-		if (storage) {
-			return JSON.parse(storage);
-		}
-		return initialState;
-	};
-	const [value, setValue] = useState(getData);
-
+export function useLocalStorage (key) {
+	const [data, setData] = useState();
 	useEffect(() => {
-		localStorage.setItem(key, JSON.stringify(value));
-	}, [key, value]);
-    
+		const res = JSON.parse(localStorage.getItem(key));
+		if (res) { 
+			setData(res);
+		} else {
+			setData([]);
+		}
+	}, []); 
 
-	return [value, setValue];
-};
+	const saveData = (newData) => {
+		localStorage.setItem(key, JSON.stringify(newData));
+		setData(newData);
+	};   
 
-export {useLocalStorage};
+	//каждый хук должен чтото возвращать
+	return [data, saveData];
+
+}
