@@ -1,0 +1,11 @@
+.selector {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: center;
+    color: white;
+
+    option {
+        color: black;
+    }
+}
