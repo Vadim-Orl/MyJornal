@@ -1,0 +1,11 @@
+.journal-item-add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    font-family: "Nunito";
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+}
