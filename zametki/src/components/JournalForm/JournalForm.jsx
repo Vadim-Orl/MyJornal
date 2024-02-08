@@ -1,7 +1,7 @@
 
 import './JournalForm.css';
 import Button from '../Button/Button';
-import { useEffect, useReducer, useRef } from 'react';
+import { useContext, useEffect, useReducer, useRef } from 'react';
 import { INITIAL_STATE, formReduser } from './JournalFormState';
 import { UserContext } from '../../context/user.context';
 
@@ -11,6 +11,7 @@ function JournalForm({onSubmit}) {
 	const titleRef = useRef();
 	const dateRef = useRef();
 	const postRef = useRef();
+	const {userId} = useContext(UserContext);
 
 	const focusError = (isValid) => {
 		switch (true) {
@@ -25,6 +26,7 @@ function JournalForm({onSubmit}) {
 			break;
 		}
 	};
+
 	useEffect(() => {
 		let timerId;
 		if (!isValid.date || !isValid.post || !isValid.title) {
@@ -40,16 +42,16 @@ function JournalForm({onSubmit}) {
 	
 	useEffect(() => {
 		if (isFormReadyToSubmit) {
-			console.log(values);
+			console.log(values+'hiuhiuhiuhi');
 			onSubmit(values);
 		}
-	}, [isFormReadyToSubmit, values]);
+	}, [isFormReadyToSubmit, onSubmit, values]);
 	
 	const addJournalItem = (e) => {
 		e.preventDefault();
 		
 		dispathForm({type: 'SUBMIT'});
-		// dispathForm({type: 'CLEAR'});
+		dispathForm({type: 'CLEAR'});
 
 	};
 
@@ -58,34 +60,29 @@ function JournalForm({onSubmit}) {
 	};
 
 	return (
-		<UserContext.Consumer>
-			{(context) => (
-				<form className='journal-form' onSubmit={addJournalItem}>
-					{context.userId}
+		<form className='journal-form' onSubmit={addJournalItem}>
+			{userId}
 					
-					<div  className='input-title' >
-						<input type = 'text' ref={titleRef} onChange={onChange} value={values.title} name='title' className={!isValid.title ? 'invalid' : ''}/>
-					</div>
-					<div className='form-row'>
-						<label className='form-label' htmlFor='date'>
-							<img src='/calendar.svg' alt='Календарь'/>
-							<span>Дата</span>
-						</label>
-						<input type = 'date' ref={dateRef} onChange={onChange} value={values.date} name='date' id='date' className={!isValid.date ? 'invalid' : ''}/>
-					</div>
-					<div className='form-row'>
-						<label className='form-label' htmlFor='tag'>
-							<img src='/folder.svg' alt='Метки'/>
-							<span>Метки</span>
-						</label>
-						<input type = 'text' ref={postRef} onChange={onChange} value={values.tag} name='tag' id='tag'/>
-					</div>
-					<textarea name='post' onChange={onChange} value={values.post} id='' cols='30' rows='10' className={!isValid.post ? 'invalid' : ''} />
-					<Button text='Сохранить'/>
-				</form> 
-			)}
-			
-		</UserContext.Consumer>
+			<div  className='input-title' >
+				<input type = 'text' ref={titleRef} onChange={onChange} value={values.title} name='title' className={!isValid.title ? 'invalid' : ''}/>
+			</div>
+			<div className='form-row'>
+				<label className='form-label' htmlFor='date'>
+					<img src='/calendar.svg' alt='Календарь'/>
+					<span>Дата</span>
+				</label>
+				<input type = 'date' ref={dateRef} onChange={onChange} value={values.date} name='date' id='date' className={!isValid.date ? 'invalid' : ''}/>
+			</div>
+			<div className='form-row'>
+				<label className='form-label' htmlFor='tag'>
+					<img src='/folder.svg' alt='Метки'/>
+					<span>Метки</span>
+				</label>
+				<input type = 'text' ref={postRef} onChange={onChange} value={values.tag} name='tag' id='tag'/>
+			</div>
+			<textarea name='post' onChange={onChange} value={values.post} id='' cols='30' rows='10' className={!isValid.post ? 'invalid' : ''} />
+			<Button text='Сохранить'/>
+		</form> 
 	);
 }
 

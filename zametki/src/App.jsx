@@ -7,11 +7,16 @@ import Body from './layouts/Body/Boby';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 import {useLocalStorage} from './hooks/useLocalStorage';
 import { UserContext } from './context/user.context';
+import { useState } from 'react';
+
+
 
 function App() {
 	const [localStoragePost, SetLocalStoragePost] = useLocalStorage('data');
+	const {userId, setUserId} = useState();
 
 	const mapItems = (items) => {
+		console.log(items);
 		if (!items) {
 			return [];
 		}
@@ -23,6 +28,7 @@ function App() {
 	
 
 	const addItem = item => { 
+		console.log('add');
 		SetLocalStoragePost([...mapItems(localStoragePost), {
 			text: item.text,
 			title: item.title,
@@ -33,7 +39,7 @@ function App() {
 
 
 	return (
-		<UserContext.Provider value={{userId: 1}}>
+		// <UserContext.Provider value={{userId}}>
 			<div className='app '>
 				<LeftPanel>
 					<Header/>
@@ -44,7 +50,7 @@ function App() {
 					<JournalForm onSubmit={addItem}/>
 				</Body>
 			</div>
-		</UserContext.Provider>
+		{/* </UserContext.Provider> */}
 	);
 }
 
