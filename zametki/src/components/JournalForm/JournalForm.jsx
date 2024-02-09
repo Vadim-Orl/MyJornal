@@ -42,17 +42,14 @@ function JournalForm({onSubmit}) {
 	
 	useEffect(() => {
 		if (isFormReadyToSubmit) {
-			console.log(values+'hiuhiuhiuhi');
 			onSubmit(values);
+			dispathForm({type: 'CLEAR'});
 		}
-	}, [isFormReadyToSubmit, onSubmit, values]);
+	}, [isFormReadyToSubmit]);
 	
 	const addJournalItem = (e) => {
 		e.preventDefault();
-		
 		dispathForm({type: 'SUBMIT'});
-		dispathForm({type: 'CLEAR'});
-
 	};
 
 	const onChange = (e) => {

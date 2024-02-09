@@ -10,36 +10,34 @@ import { UserContext } from './context/user.context';
 import { useState } from 'react';
 
 
+const mapItems = (items) => {
+	console.log(items);
+	if (!items) {
+		return [];
+	}
+	return items.map(i => ({
+		...i,
+		date:  new Date(i.date)
+	}));
+};
 
 function App() {
 	const [localStoragePost, SetLocalStoragePost] = useLocalStorage('data');
-	const {userId, setUserId} = useState();
+	const [userId, setUserId] = useState(2);
 
-	const mapItems = (items) => {
-		console.log(items);
-		if (!items) {
-			return [];
-		}
-		return items.map(i => ({
-			...i,
-			date:  new Date(i.date)
-		}));
-	};
-	
 
 	const addItem = item => { 
-		console.log('add');
 		SetLocalStoragePost([...mapItems(localStoragePost), {
-			text: item.text,
+			post: item.post,
 			title: item.title,
 			date: new Date(item.date),
-			id: localStoragePost > 0 ? Math.max(...localStoragePost.map(i => i.id)) + 1  : 1
+			id: localStoragePost.length > 0 ? Math.max(...localStoragePost.map(i => i.id)) + 1  : 1
 		}]);
 	};
 
 
 	return (
-		// <UserContext.Provider value={{userId}}>
+		<UserContext.Provider value={{userId, setUserId}}>
 			<div className='app '>
 				<LeftPanel>
 					<Header/>
@@ -50,7 +48,7 @@ function App() {
 					<JournalForm onSubmit={addItem}/>
 				</Body>
 			</div>
-		{/* </UserContext.Provider> */}
+		</UserContext.Provider>
 	);
 }
 

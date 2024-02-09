@@ -1,10 +1,7 @@
 import './Header.css';
 import SelectUser from '../SelectUser/SelectUser';
 
-function Header({changedUser}) {
-	const changeUser = e => {
-		changedUser(e.target.value);
-	};
+function Header() {
 	
 	return (
 		<>

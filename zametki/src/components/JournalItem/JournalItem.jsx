@@ -1,9 +1,9 @@
 import './JournalItem.css';
 
 function JurnalItem({data}) {
-	const {title, date, text} = data;
+	const {title, date, post} = data;
 	console.log(data);
-	console.log(text);
+	// console.log(text);
 
   
 	const formatedDate = new Intl.DateTimeFormat('ru-Ru').format(date);
@@ -13,7 +13,7 @@ function JurnalItem({data}) {
 			<h2 className='journal-item__header'>{title}</h2>
 			<h2 className='journal-item__body'>
 				<div className='journal-item__date'>{formatedDate}</div>
-				<div className='journal-item__text'>{text}</div>
+				<div className='journal-item__text'>{post}</div>
 			</h2>
 		</div>
 	);

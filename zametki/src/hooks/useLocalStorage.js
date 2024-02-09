@@ -9,7 +9,7 @@ export function useLocalStorage (key) {
 		} else {
 			setData([]);
 		}
-	}, []); 
+	}, [key]); 
 
 	const saveData = (newData) => {
 		localStorage.setItem(key, JSON.stringify(newData));
