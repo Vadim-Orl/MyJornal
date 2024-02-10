@@ -15,6 +15,8 @@ export const INITIAL_STATE = {
 
 export function formReduser(state, action) {
 	switch(action.type) {
+	case 'RECORD':
+		return {...state, values: {...action.payload}};
 	case 'SET_VALUE':
 		return {...state, values: {...state.values, ...action.payload}};
 	case 'CLEAR':
