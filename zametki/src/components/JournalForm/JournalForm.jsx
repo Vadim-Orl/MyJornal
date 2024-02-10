@@ -45,7 +45,11 @@ function JournalForm({onSubmit}) {
 			onSubmit(values);
 			dispathForm({type: 'CLEAR'});
 		}
-	}, [isFormReadyToSubmit]);
+	}, [isFormReadyToSubmit, onSubmit, values]);
+
+	useEffect(() => {
+		dispathForm({type: 'SET_VALUE', payload: {userId}});
+	}, [userId]);
 	
 	const addJournalItem = (e) => {
 		e.preventDefault();
@@ -78,7 +82,7 @@ function JournalForm({onSubmit}) {
 				<input type = 'text' ref={postRef} onChange={onChange} value={values.tag} name='tag' id='tag'/>
 			</div>
 			<textarea name='post' onChange={onChange} value={values.post} id='' cols='30' rows='10' className={!isValid.post ? 'invalid' : ''} />
-			<Button text='Сохранить'/>
+			<Button>Сохранить</Button>
 		</form> 
 	);
 }
