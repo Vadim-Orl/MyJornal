@@ -22,8 +22,6 @@ function JournalList({items, setItem}) {
 		.sort(sortItems), [items, userId]
 	);
 
-
-
 	if(items.length === 0) {
 		return (
 			<p>Записей нет, добавьте первую</p>

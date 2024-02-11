@@ -27,8 +27,6 @@ export function formReduser(state, action) {
 		const titleValidity = state.values.title?.trim().length;
 		const postValidity = state.values.post?.trim().length;
 		const dateValidity = state.values.date;
-		console.log(state.isFormReadyToSubmit);
-		console.log(state.titleValidity, state.dateValidity);
 		return {
 			...state,
 			isValid: {

@@ -1,10 +1,10 @@
 import style from './CardButton.module.css';
 
-function CardButton({children, className, onClick}) {
+function CardButton({children, className, ...props}) {
 	const cl = `${style['card-button']} ${className ? className : ''}`;
-
+	// console.log(className);
 	return (
-		<button className={cl} onClick={onClick}>{children}</button>
+		<button className={cl} {...props}>{children}</button>
 	);
 }
 
