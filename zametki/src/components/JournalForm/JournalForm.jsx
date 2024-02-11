@@ -33,7 +33,7 @@ function JournalForm({onSubmit, data, deleteItem}) {
 			dispathForm({type: 'SET_VALUE', payload: {userId}});
 		}
 		dispathForm({type: 'SET_VALUE', payload: {...data}});
-	}, [data, userId]);
+	}, [data]);
 
 	useEffect(() => {
 		let timerId;
