@@ -6,12 +6,11 @@ import JournalList from './components/JournalList/JournalList';
 import Body from './layouts/Body/Boby';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 import {useLocalStorage} from './hooks/useLocalStorage';
-import { UserContext } from './context/user.context';
+import { UserContextProvider } from './context/user.context';
 import { useState } from 'react';
 
 
 const mapItems = (items) => {
-	console.log(items);
 	if (!items) {
 		return [];
 	}
@@ -23,32 +22,44 @@ const mapItems = (items) => {
 
 function App() {
 	const [localStoragePost, SetLocalStoragePost] = useLocalStorage('data');
-	const [userId, setUserId] = useState(2);
+	const [selectedItem, setSelectedItem] = useState(null);
 
+	const deleteItem = (id) => {
+		SetLocalStoragePost([...localStoragePost.filter(i => i.id !== id)]);
 
-	const addItem = item => { 
-		SetLocalStoragePost([...mapItems(localStoragePost), {
-			post: item.post,
-			title: item.title,
-			date: new Date(item.date),
-			id: localStoragePost.length > 0 ? Math.max(...localStoragePost.map(i => i.id)) + 1  : 1
-		}]);
 	};
 
+	const addItem = item => { 
+		if (!item.id) {
+			SetLocalStoragePost([...mapItems(localStoragePost), {
+				...item,
+				date: new Date(item.date),
+				id: localStoragePost.length > 0 ? Math.max(...localStoragePost.map(i => i.id)) + 1  : 1
+			}]);
+		} else {
+			SetLocalStoragePost([...mapItems(localStoragePost).map(i => {
+				if (i.id === item.id) {
+					return {...item};
+				}
+				return i;
+			})]);
+		}
+
+	};
 
 	return (
-		<UserContext.Provider value={{userId, setUserId}}>
+		<UserContextProvider>
 			<div className='app '>
 				<LeftPanel>
 					<Header/>
-					<JournalAddButton/>
-					<JournalList items={mapItems(localStoragePost) }/>
+					<JournalAddButton clearForm={() => setSelectedItem(null)}/>
+					<JournalList items={mapItems(localStoragePost)} setItem={setSelectedItem} />
 				</LeftPanel>
 				<Body>
-					<JournalForm onSubmit={addItem}/>
+					<JournalForm onSubmit={addItem} data={selectedItem} deleteItem={deleteItem}/>
 				</Body>
 			</div>
-		</UserContext.Provider>
+		</UserContextProvider>
 	);
 }
 

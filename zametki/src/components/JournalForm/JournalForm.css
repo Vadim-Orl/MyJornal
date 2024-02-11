@@ -10,13 +10,15 @@
     border: none;
     background: none;
     color: #ebdcdc;
-    font-size: 14px;
+    font-size: 22px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
     font-family: 'Source Sans 3', sans-serif;
     border-bottom: 1px solid #7b7b7b;
     background-color: #7b7b7b;
+
+    display: flex;
 }
 
 /* input[type="date"]::-webkit-calendar-picker-indicator {
@@ -65,6 +67,7 @@ textarea {
     cursor: pointer;
     width: 30px;
     height: 30px;
+    margin: 10px;
 }
 
 .delete-button:hover {
